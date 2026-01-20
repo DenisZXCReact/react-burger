@@ -16,6 +16,7 @@ export const App = () => {
         <BurgerIngredients ingredients={ingredients} />
         <BurgerConstructor ingredients={ingredients} />
       </main>
+      <p>Test Commit</p>
     </div>
   );
 };
