@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image {
+  width: 480px;
+  height: 240px;
+}
+
+.ingredient_details {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 516px;
+  list-style: none;
+}
+
+.ingredient_details li {
+  display: flex;
+  flex: 1 1 25%;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}

@@ -1,0 +1,9 @@
+import styles from './ingredients-group.module.css';
+export default function IngredientsGroup({ title, children, type }) {
+  return (
+    <div id={`group-${type}`}>
+      <h2 className="text text_type_main-medium mb-6">{title}</h2>
+      <div className={`${styles.group} pl-4 pr-2`}>{children}</div>
+    </div>
+  );
+}

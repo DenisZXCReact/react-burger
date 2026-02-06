@@ -15,3 +15,8 @@ body {
     scrollbar-width: thin;
   }
 }
+
+img {
+  user-select: none;
+  pointer-events: none;
+}
