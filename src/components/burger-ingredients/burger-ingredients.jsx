@@ -5,13 +5,16 @@ import ScrollableContainer from '@components/scrollable-container/scrollable-con
 import useIngredients from '@hooks/useIngredients.js';
 
 import styles from './burger-ingredients.module.css';
-export const BurgerIngredients = ({
-  ingredients,
-  addBurgerIngredient,
-  getIngredientCount,
-}) => {
-  const { tab, changeTab, ingredientsTypes, IngredientsTitles, filteredIngredients } =
-    useIngredients(ingredients);
+export const BurgerIngredients = () => {
+  const {
+    tab,
+    changeTab,
+    ingredientsTypes,
+    IngredientsTitles,
+    filteredIngredients,
+    scrollContainerRef,
+    titlesRef,
+  } = useIngredients();
   return (
     <section className={styles.burger_ingredients}>
       <BurgerIngredientsHeader
@@ -22,20 +25,17 @@ export const BurgerIngredients = ({
       />
       <ScrollableContainer
         className={`${styles.burger_ingredients_container} group_container`}
+        ref={scrollContainerRef}
       >
         {ingredientsTypes.map((typeInfo) => (
           <IngredientsGroup
             key={typeInfo.id}
             type={typeInfo.type}
             title={IngredientsTitles[typeInfo.type]}
+            titleRef={titlesRef}
           >
             {filteredIngredients[typeInfo.type].map((ingredient) => (
-              <IngredientCard
-                key={ingredient._id}
-                ingredient={ingredient}
-                addBurgerIngredient={addBurgerIngredient}
-                count={getIngredientCount(ingredient)}
-              />
+              <IngredientCard key={ingredient._id} ingredient={ingredient} />
             ))}
           </IngredientsGroup>
         ))}

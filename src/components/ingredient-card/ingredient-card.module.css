@@ -7,6 +7,10 @@
   cursor: pointer;
 }
 
+.card:active {
+  cursor: grabbing !important;
+}
+
 .card__image {
   box-sizing: border-box;
   width: 100%;

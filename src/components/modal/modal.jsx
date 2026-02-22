@@ -7,9 +7,16 @@ import ModalOverlay from '@components/modal-overlay/modal-overlay.jsx';
 import styles from './modal.module.css';
 
 const modalRoot = document.getElementById('react-modals');
-export default function Modal({ title, children, onClose, width = 720 }) {
+export default function Modal({
+  title,
+  children,
+  onClose,
+  width = 720,
+  disableClosing,
+}) {
   useEffect(() => {
     function closeModal(e) {
+      if (disableClosing) return;
       if (e.key === 'Escape') onClose();
     }
 
@@ -21,8 +28,17 @@ export default function Modal({ title, children, onClose, width = 720 }) {
   }, [onClose]);
   return createPortal(
     <>
-      <ModalOverlay onClose={onClose} />
-      <div className={styles.modal} style={{ width }}>
+      <ModalOverlay
+        onClose={() => {
+          if (disableClosing) return;
+          onClose();
+        }}
+      />
+      <div
+        className={styles.modal}
+        style={{ width }}
+        onClick={(event) => event.stopPropagation()}
+      >
         <div className={styles.modal_container}>
           <div className={styles.modal_top}>
             <h2 className="text text_type_main-large">{title}</h2>
@@ -31,6 +47,7 @@ export default function Modal({ title, children, onClose, width = 720 }) {
               type={'primary'}
               onClick={(e) => {
                 e.stopPropagation();
+                if (disableClosing) return;
                 onClose();
               }}
             />

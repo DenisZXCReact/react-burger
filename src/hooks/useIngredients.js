@@ -1,7 +1,13 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-export default function useIngredients(ingredients) {
+import { getIngredients } from '@services/ingredients/ingredients-slice.js';
+
+export default function useIngredients() {
+  const ingredients = useSelector(getIngredients);
   const [tab, setTab] = useState('bun');
+  const scrollContainerRef = useRef(null);
+  const titlesRef = useRef({});
   const ingredientsTypes = useMemo(
     () => [
       { id: 1, type: 'bun' },
@@ -10,6 +16,35 @@ export default function useIngredients(ingredients) {
     ],
     []
   );
+  useEffect(() => {
+    function handleContainerScroll() {
+      const titles = Object.values(titlesRef.current);
+      const scrollContainerTop = scrollContainerRef.current.getBoundingClientRect().top;
+      if (titles.length > 0) {
+        let nearbyTitle = titles.reduce((closest, title, index) => {
+          const titleRect = title.getBoundingClientRect();
+          const titleTopOffset = Math.abs(titleRect.top - scrollContainerTop);
+
+          if (!closest || titleTopOffset < closest.offset) {
+            return {
+              offset: titleTopOffset,
+              type: ingredientsTypes[index].type,
+            };
+          }
+          return closest;
+        }, null);
+        setTab((prevTab) => (prevTab === nearbyTitle.type ? prevTab : nearbyTitle.type));
+      }
+    }
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.addEventListener('scroll', handleContainerScroll);
+    }
+    return () => {
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.removeEventListener('scroll', handleContainerScroll);
+      }
+    };
+  }, []);
 
   const IngredientsTitles = useMemo(
     () => ({
@@ -36,5 +71,13 @@ export default function useIngredients(ingredients) {
     };
   }, [ingredients]);
 
-  return { tab, changeTab, ingredientsTypes, IngredientsTitles, filteredIngredients };
+  return {
+    tab,
+    changeTab,
+    ingredientsTypes,
+    IngredientsTitles,
+    filteredIngredients,
+    scrollContainerRef,
+    titlesRef,
+  };
 }
