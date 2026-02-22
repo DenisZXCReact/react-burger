@@ -1,0 +1,23 @@
+.drop_hover {
+  border: 2px dashed #fff;
+}
+
+.drop_place,
+.drop_place_top,
+.drop_place_bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  background: #2f2f36;
+  border-radius: 40px;
+}
+
+.drop_place_top {
+  border-radius: 88px 88px 40px 40px;
+}
+
+.drop_place_bottom {
+  border-radius: 40px 40px 88px 88px;
+}

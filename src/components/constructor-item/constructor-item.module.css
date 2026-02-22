@@ -1,0 +1,17 @@
+.constructor_item {
+  display: flex;
+  flex-grow: 0;
+  justify-content: space-between;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+}
+
+.constructor_preview {
+  width: 100%;
+  max-width: 536px;
+}
+
+.drag {
+  cursor: grab;
+}
