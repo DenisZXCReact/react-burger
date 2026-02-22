@@ -34,3 +34,8 @@ export const getIngredientsForOrder = createSelector(
     };
   }
 );
+export const isBurgerReadyToOrder = (state) => {
+  const bun = getBurgerBun(state);
+  const ingredients = getBurgerIngredients(state);
+  return !!(bun._id && ingredients.length > 0);
+};

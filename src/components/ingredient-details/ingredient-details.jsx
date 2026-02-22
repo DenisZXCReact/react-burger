@@ -11,7 +11,7 @@ export default function IngredientDetails() {
       <img
         className={`${styles.image} mb-4`}
         src={ingredientDetails.image}
-        alt="ингредиент"
+        alt={ingredientDetails.name}
       />
       <p className="text text_type_main-medium mb-8">{ingredientDetails.name}</p>
       <ul

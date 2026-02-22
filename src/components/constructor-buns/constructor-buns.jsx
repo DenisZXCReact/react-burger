@@ -3,7 +3,6 @@ import { useDrop } from 'react-dnd';
 import { useSelector } from 'react-redux';
 
 import DropPlaceholder from '@components/drag-and-drop/drop-placeholder/drop-placeholder.jsx';
-import IngredientPreview from '@components/ingredient-preview/ingredient-preview.jsx';
 import useDnDForBurgerIngredients from '@hooks/useDnDForBurgerIngredients.js';
 import { getBurgerBun } from '@services/burder-ingredients/burder-ingredients-selectors.js';
 
@@ -24,15 +23,13 @@ export default function ConstructorBuns({ children }) {
     <>
       {bun.name ? (
         <div className={`${styles.bun} mb-4 mr-4`} ref={dropBunTop}>
-          <IngredientPreview ingredient={bun}>
-            <ConstructorElement
-              isLocked
-              price={bun.price}
-              text={`${bun.name} (верх)`}
-              thumbnail={bun.image}
-              type="top"
-            />
-          </IngredientPreview>
+          <ConstructorElement
+            isLocked
+            price={bun.price}
+            text={`${bun.name} (верх)`}
+            thumbnail={bun.image}
+            type="top"
+          />
         </div>
       ) : (
         <DropPlaceholder
@@ -47,15 +44,13 @@ export default function ConstructorBuns({ children }) {
       {children}
       {bun.name ? (
         <div ref={dropBunBottom} className={`${styles.bun} mb-10 mt-4 mr-4`}>
-          <IngredientPreview ingredient={bun}>
-            <ConstructorElement
-              isLocked
-              price={bun.price}
-              text={`${bun.name} (верх)`}
-              thumbnail={bun.image}
-              type="bottom"
-            />
-          </IngredientPreview>
+          <ConstructorElement
+            isLocked
+            price={bun.price}
+            text={`${bun.name} (верх)`}
+            thumbnail={bun.image}
+            type="bottom"
+          />
         </div>
       ) : (
         <DropPlaceholder

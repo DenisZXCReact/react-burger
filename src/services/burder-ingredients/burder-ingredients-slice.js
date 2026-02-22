@@ -34,7 +34,6 @@ export const burgerIngredientsSlice = createSlice({
     },
     swapBurgerIngredients: (state, action) => {
       const { fromKey, toKey } = action.payload;
-      console.log(fromKey, toKey);
       const fromIngredientIndex = state.ingredients.findIndex(
         (ingredient) => ingredient.key === fromKey
       );
@@ -44,10 +43,11 @@ export const burgerIngredientsSlice = createSlice({
 
       const fromIngredient = state.ingredients[fromIngredientIndex];
       const toIngredient = state.ingredients[toIngredientIndex];
-
-      console.log(fromIngredientIndex, fromIngredient, toIngredientIndex, toIngredient);
       state.ingredients[toIngredientIndex] = fromIngredient;
       state.ingredients[fromIngredientIndex] = toIngredient;
+    },
+    resetBurger: () => {
+      return initialState;
     },
   },
 });
@@ -56,4 +56,5 @@ export const {
   addBurgerIngredient,
   deleteBurgerIngredientByKey,
   swapBurgerIngredients,
+  resetBurger,
 } = burgerIngredientsSlice.actions;

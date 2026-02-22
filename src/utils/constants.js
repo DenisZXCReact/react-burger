@@ -1,4 +1,2 @@
-const INGREDIENTS_API =
-  'https://new-stellarburgers.education-services.ru/api/ingredients';
-
-export { INGREDIENTS_API };
+const BASE_URL = 'https://new-stellarburgers.education-services.ru/api';
+export { BASE_URL };

@@ -25,7 +25,7 @@ export default function Modal({
     return () => {
       window.removeEventListener('keydown', closeModal);
     };
-  }, [onClose]);
+  }, [onClose, disableClosing]);
   return createPortal(
     <>
       <ModalOverlay
