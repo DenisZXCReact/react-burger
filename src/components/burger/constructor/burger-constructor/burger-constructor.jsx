@@ -1,9 +1,9 @@
 import { useLayoutEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
-import BurgerConstructorBottom from '@components/burger-constructor-bottom/burger-constructor-bottom.jsx';
-import ConstructorBuns from '@components/constructor-buns/constructor-buns.jsx';
-import ConstructorItem from '@components/constructor-item/constructor-item.jsx';
+import BurgerConstructorBottom from '@components/burger/constructor/burger-constructor-bottom/burger-constructor-bottom.jsx';
+import ConstructorBuns from '@components/burger/constructor/constructor-buns/constructor-buns.jsx';
+import ConstructorItem from '@components/burger/constructor/constructor-item/constructor-item.jsx';
 import DropPlaceholder from '@components/drag-and-drop/drop-placeholder/drop-placeholder.jsx';
 import DropWrapper from '@components/drag-and-drop/drop-wrapper/drop-wrapper.jsx';
 import ScrollableContainer from '@components/scrollable-container/scrollable-container.jsx';

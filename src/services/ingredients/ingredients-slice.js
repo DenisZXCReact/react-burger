@@ -7,12 +7,15 @@ const initialState = {
   loading: false,
   error: null,
 };
-const isRejectedAction = (action) => action.type.endsWith('rejected');
+
 export const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState,
   selectors: {
     getIngredients: (state) => state.ingredients,
+    getIngredientById: (state, id) => {
+      return state.ingredients.find((ingredient) => ingredient._id === id);
+    },
     getIngredientsLoading: (state) => state.loading,
     getIngredientsError: (state) => state.error,
   },
@@ -25,12 +28,16 @@ export const ingredientsSlice = createSlice({
       .addCase(loadIngredients.pending, (state) => {
         state.loading = true;
       })
-      .addMatcher(isRejectedAction, (state, action) => {
+      .addMatcher(loadIngredients.rejected, (state, action) => {
         state.error = action.error?.message ?? 'Unknown error';
         state.loading = false;
       });
   },
 });
 
-export const { getIngredients, getIngredientsLoading, getIngredientsError } =
-  ingredientsSlice.selectors;
+export const {
+  getIngredients,
+  getIngredientsLoading,
+  getIngredientsError,
+  getIngredientById,
+} = ingredientsSlice.selectors;

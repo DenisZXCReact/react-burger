@@ -1,0 +1,22 @@
+.sidebar {
+  max-width: 320px;
+}
+
+.menu {
+  margin: 0 0 80px;
+  padding: 0;
+}
+
+.item {
+  line-height: 64px;
+  list-style: none;
+}
+
+.item a,
+.description {
+  color: #8585ad;
+}
+
+.item.active a {
+  color: #f2f2f3;
+}

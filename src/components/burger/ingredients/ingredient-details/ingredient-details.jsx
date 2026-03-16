@@ -1,11 +1,9 @@
-import { useSelector } from 'react-redux';
-
-import { getDetailsModal } from '@services/details-modal/details-modal-slice.js';
+import { useIngredientDetails } from '@hooks/useIngredientDetails.js';
 
 import styles from './ingredient-details.module.css';
 
 export default function IngredientDetails() {
-  const ingredientDetails = useSelector(getDetailsModal);
+  const { ingredientDetails } = useIngredientDetails();
   return (
     <div className={styles.container}>
       <img

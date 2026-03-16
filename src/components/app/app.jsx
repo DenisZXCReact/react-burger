@@ -1,42 +1,120 @@
-import { Preloader } from '@krgaa/react-developer-burger-ui-components';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
 
-import { loadIngredients } from '@/services/ingredients/ingredients-action.js';
-import {
-  getIngredientsError,
-  getIngredientsLoading,
-} from '@/services/ingredients/ingredients-slice.js';
-import { AppHeader } from '@components/app-header/app-header.jsx';
-import { BurgerConstructor } from '@components/burger-constructor/burger-constructor.jsx';
-import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients.jsx';
+import AppLayout from '@components/app/app-layout/app-layout.jsx';
+import ProtectedRoute from '@components/auth/protected-route/protected-route.jsx';
+import IngredientDetails from '@components/burger/ingredients/ingredient-details/ingredient-details.jsx';
+import Feed from '@pages/feed/feed.jsx';
+import ForgotPassword from '@pages/forgot-password/forgot-password.jsx';
+import Home from '@pages/home/home.jsx';
+import Login from '@pages/login/login.jsx';
+import NotFound from '@pages/not-found/not-found.jsx';
+import ProfileOrder from '@pages/profile-order/profile-order.jsx';
+import Profile from '@pages/profile/profile.jsx';
+import Register from '@pages/register/register.jsx';
+import ResetPassword from '@pages/reset-password/reset-password.jsx';
+import { updateUser } from '@services/auth/actions/change-user-data.js';
+import { newPassword } from '@services/auth/actions/new-password.js';
+import { resetPassword } from '@services/auth/actions/password-reset.js';
+import { registerUser } from '@services/auth/actions/register.js';
+import { loadIngredients } from '@services/ingredients/ingredients-action.js';
+import { store } from '@services/store.js';
 
 import styles from './app.module.css';
-export const App = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(loadIngredients());
-  }, []);
-  const loading = useSelector(getIngredientsLoading);
-  const error = useSelector(getIngredientsError);
+async function parseFormData(request) {
+  const formData = await request.formData();
+  return Object.fromEntries(formData.entries());
+}
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+        loader: async () => {
+          const state = store.getState();
+          if (state.ingredients.ingredients.length === 0) {
+            return { loadIngredients: store.dispatch(loadIngredients()) };
+          }
+          return true;
+        },
+        children: [
+          {
+            path: 'ingredient/:id',
+            element: <IngredientDetails />,
+          },
+        ],
+      },
+      {
+        path: '/login',
+        element: <ProtectedRoute onlyUnAuth component={<Login />} />,
+        // action: async ({ request }) => {
+        //   const data = await parseFormData(request);
+        //   store.dispatch(loginUser(data));
+        // },
+      },
+      {
+        path: '/register',
+        element: <ProtectedRoute onlyUnAuth component={<Register />} />,
+        action: async ({ request }) => {
+          const data = await parseFormData(request);
+          store.dispatch(registerUser(data));
+        },
+      },
+      {
+        path: '/forgot-password',
+        element: <ProtectedRoute onlyUnAuth component={<ForgotPassword />} />,
+        action: async ({ request }) => {
+          const data = await parseFormData(request);
+          const response = await store.dispatch(resetPassword(data));
 
+          if (response?.payload?.success) {
+            localStorage.setItem('resetAllowed', true);
+            return redirect('/reset-password');
+          }
+        },
+      },
+      {
+        path: '/reset-password',
+        element: <ProtectedRoute onlyUnAuth component={<ResetPassword />} />,
+        action: async ({ request }) => {
+          const data = await parseFormData(request);
+          const response = await store.dispatch(newPassword(data));
+
+          if (response?.payload?.success) {
+            return redirect('/login');
+          }
+        },
+      },
+      {
+        path: '/profile',
+        element: <ProtectedRoute component={<Profile />} />,
+        action: async ({ request }) => {
+          const data = await parseFormData(request);
+          store.dispatch(updateUser(data));
+        },
+        children: [
+          {
+            path: 'orders/',
+            element: <ProfileOrder />,
+          },
+        ],
+      },
+      {
+        path: '/feed',
+        element: <Feed />,
+      },
+      {
+        path: '*',
+        element: <NotFound />,
+      },
+    ],
+  },
+]);
+export const App = () => {
   return (
     <div className={styles.app}>
-      <AppHeader />
-      <h1 className={`${styles.title} text text_type_main-large mt-10 mb-5 pl-5`}>
-        Соберите бургер
-      </h1>
-
-      <main className={`${styles.main} pl-5 pr-5`}>
-        {loading || error ? (
-          <Preloader />
-        ) : (
-          <>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </>
-        )}
-      </main>
+      <RouterProvider router={router} />
     </div>
   );
 };

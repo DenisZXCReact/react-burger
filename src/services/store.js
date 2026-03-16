@@ -1,15 +1,17 @@
 import { combineSlices, configureStore } from '@reduxjs/toolkit';
 
+import { authSlice } from '@services/auth/auth-slice.js';
 import { burgerIngredientsSlice } from '@services/burder-ingredients/burder-ingredients-slice.js';
-import { detailModalSlice } from '@services/details-modal/details-modal-slice.js';
+import { ingredientDetailsSlice } from '@services/details-modal/ingredient-details-slice.js';
 import { ingredientsSlice } from '@services/ingredients/ingredients-slice.js';
 import { orderDetailsSlice } from '@services/orderDetails/order-details-slice.js';
 
 const rootReducer = combineSlices(
   ingredientsSlice,
-  detailModalSlice,
+  ingredientDetailsSlice,
   orderDetailsSlice,
-  burgerIngredientsSlice
+  burgerIngredientsSlice,
+  authSlice
 );
 
 export const store = configureStore({
