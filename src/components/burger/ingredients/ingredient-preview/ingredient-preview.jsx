@@ -7,12 +7,13 @@ import Modal from '@components/modal/modal.jsx';
 import { setIngredientDetails } from '@services/details-modal/ingredient-details-slice.js';
 
 export default function IngredientPreview() {
+  console.log('popup');
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   const closeIngredientsDetails = useCallback(() => {
-    navigate(-1);
+    navigate('/');
     dispatch(setIngredientDetails({}));
   }, []);
   return (

@@ -18,7 +18,7 @@ export default function ForgotPassword() {
           onChange={(e) => updateFormValue('email', e.target.value)}
           checkValid={(isValid) => updateValid('email', isValid)}
         />
-        <Button size="medium" type="primary" disabled={!isFormValid}>
+        <Button size="medium" type="primary" disabled={!isFormValid} htmlType="submit">
           Восстановить
         </Button>
       </Form>

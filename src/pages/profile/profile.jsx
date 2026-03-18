@@ -18,6 +18,7 @@ import styles from './profile.module.css';
 export default function Profile() {
   const userData = useSelector(getAuthUser);
   const loading = useSelector(isAuthLoading);
+
   const { form, updateValid, updateFormValue, isFormValid } = useForm({
     name: userData.name,
     email: userData.email,
@@ -62,7 +63,7 @@ export default function Profile() {
         {loading ? (
           <Preloader />
         ) : (
-          <Form method="post" action="/profile" className="form">
+          <Form method="post" action="/profile" className="form" onSubmit={resetIcons}>
             <Input
               name="name"
               value={form.name}
@@ -76,7 +77,6 @@ export default function Profile() {
               disabled={icons.name === 'EditIcon'}
               icon={icons.name}
               onIconClick={nameIconClickHandler}
-              extraClass=""
             />
             <EmailInput
               name="email"
@@ -106,10 +106,16 @@ export default function Profile() {
                     resetIcons();
                     resetChanges();
                   }}
+                  htmlType="button"
                 >
                   Отмена
                 </Button>
-                <Button size="medium" type="primary" disabled={!isFormValid}>
+                <Button
+                  size="medium"
+                  type="primary"
+                  disabled={!isFormValid}
+                  htmlType="submit"
+                >
                   Сохранить
                 </Button>
               </div>

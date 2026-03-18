@@ -2,7 +2,7 @@ import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
 
 import AppLayout from '@components/app/app-layout/app-layout.jsx';
 import ProtectedRoute from '@components/auth/protected-route/protected-route.jsx';
-import IngredientDetails from '@components/burger/ingredients/ingredient-details/ingredient-details.jsx';
+import IngredientPreview from '@components/burger/ingredients/ingredient-preview/ingredient-preview.jsx';
 import Feed from '@pages/feed/feed.jsx';
 import ForgotPassword from '@pages/forgot-password/forgot-password.jsx';
 import Home from '@pages/home/home.jsx';
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'ingredient/:id',
-            element: <IngredientDetails />,
+            element: <IngredientPreview />,
           },
         ],
       },

@@ -3,6 +3,7 @@ import { useIngredientDetails } from '@hooks/useIngredientDetails.js';
 import styles from './ingredient-details.module.css';
 
 export default function IngredientDetails() {
+  console.log('details');
   const { ingredientDetails } = useIngredientDetails();
   return (
     <div className={styles.container}>

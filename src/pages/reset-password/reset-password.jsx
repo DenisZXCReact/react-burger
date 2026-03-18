@@ -41,7 +41,7 @@ export default function ResetPassword() {
             updateValid('token', e.target.value.length > 0);
           }}
         />
-        <Button size="medium" type="primary" disabled={!isFormValid}>
+        <Button size="medium" type="primary" disabled={!isFormValid} htmlType="submit">
           Сохранить
         </Button>
       </Form>

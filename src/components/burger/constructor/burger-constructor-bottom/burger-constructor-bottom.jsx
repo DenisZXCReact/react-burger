@@ -1,8 +1,10 @@
 import { Button, CurrencyIcon } from '@krgaa/react-developer-burger-ui-components';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import OrderDetails from '@components/order-details/order-details.jsx';
+import { getAuthUser } from '@services/auth/auth-slice.js';
 import {
   getBurgerPrice,
   getIngredientsForOrder,
@@ -18,10 +20,13 @@ function BurgerConstructorBottom() {
   const burgerPrice = useSelector(getBurgerPrice);
   const dataForOrder = useSelector(getIngredientsForOrder);
   const readyToOrder = useSelector(isBurgerReadyToOrder);
+  const user = useSelector(getAuthUser);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   function order() {
     if (!readyToOrder) return;
+    if (!user) return navigate('/login', { state: { from: '/' } });
+
     dispatch(createOrder(dataForOrder));
     setShowOrderDetail(true);
   }
