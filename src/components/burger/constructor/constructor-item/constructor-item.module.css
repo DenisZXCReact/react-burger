@@ -7,11 +7,6 @@
   width: 100%;
 }
 
-.constructor_preview {
-  width: 100%;
-  max-width: 536px;
-}
-
 .drag {
   cursor: grab;
 }

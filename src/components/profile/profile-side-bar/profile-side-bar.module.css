@@ -15,6 +15,7 @@
 .item a,
 .description {
   color: #8585ad;
+  cursor: pointer;
 }
 
 .item.active a {
