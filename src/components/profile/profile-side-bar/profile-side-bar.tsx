@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '@hooks/useAppDispatch.ts';
 import { logoutUser } from '@services/auth/actions/logout.ts';
@@ -16,11 +16,22 @@ export default function ProfileSideBar(): ReactNode {
   return (
     <div className={styles.sidebar}>
       <ul className={styles.menu}>
-        <li className={`${styles.item} ${styles.active} text text_type_main-medium`}>
-          <Link to="/profile">Профиль</Link>
+        <li className={`${styles.item} text text_type_main-medium`}>
+          <NavLink
+            to="/profile"
+            end
+            className={({ isActive }) => (isActive ? styles.active : '')}
+          >
+            Профиль
+          </NavLink>
         </li>
         <li className={`${styles.item} text text_type_main-medium`}>
-          <Link to="/profile/orders">История заказов</Link>
+          <NavLink
+            to="/profile/orders"
+            className={({ isActive }) => (isActive ? styles.active : '')}
+          >
+            История заказов
+          </NavLink>
         </li>
         <li className={`${styles.item} text text_type_main-medium`}>
           <a onClick={handleLogout}>Выход</a>

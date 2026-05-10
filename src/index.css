@@ -43,3 +43,7 @@ a {
   gap: 24px;
   margin-bottom: 80px;
 }
+
+.success-color {
+  color: #0cc;
+}

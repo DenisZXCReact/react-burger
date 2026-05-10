@@ -1,4 +1,5 @@
 .sidebar {
+  align-self: center;
   max-width: 320px;
 }
 
@@ -18,6 +19,6 @@
   cursor: pointer;
 }
 
-.item.active a {
-  color: #f2f2f3;
+.active {
+  color: #f2f2f3 !important;
 }

@@ -1,4 +1,4 @@
-import baseRequest from '@utils/baseRequest.ts';
+import fetchWithRefresh from '@utils/auth/fetchWithRefresh.ts';
 
 const orderConfig = {
   endPoint: `orders`,
@@ -16,9 +16,12 @@ export const getOrderDetails = async (
   ingredients: string[]
 ): Promise<TOrderDetailsResponse> => {
   console.log(ingredients);
-  return baseRequest(orderConfig.endPoint, {
+  return fetchWithRefresh<TOrderDetailsResponse>(orderConfig.endPoint, {
     method: 'POST',
-    headers: orderConfig.headers,
+    headers: {
+      ...orderConfig.headers,
+      authorization: localStorage.getItem('accessToken')!,
+    },
     body: JSON.stringify({ ingredients: ingredients }),
   });
 };

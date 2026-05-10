@@ -21,7 +21,7 @@ export const useIngredientDetails = (): {
     useAppSelector(getIngredientDetails);
 
   useEffect(() => {
-    if (ingredientFromUrl && !ingredientDetails!.name) {
+    if (ingredientFromUrl && !ingredientDetails) {
       dispatch(setIngredientDetails(ingredientFromUrl));
     }
   }, [ingredientFromUrl, ingredientDetails]);

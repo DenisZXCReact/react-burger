@@ -1,0 +1,14 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header {
+  margin-bottom: 60px;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

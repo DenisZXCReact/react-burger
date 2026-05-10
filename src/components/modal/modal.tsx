@@ -1,4 +1,5 @@
 import { CloseIcon } from '@krgaa/react-developer-burger-ui-components';
+import { clsx } from 'clsx';
 import { type ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -12,8 +13,10 @@ type TModal = ({
   onClose,
   width,
   disableClosing,
+  titleSize,
 }: {
   title?: string;
+  titleSize?: 'large' | 'medium' | 'small' | 'default';
   children: ReactNode;
   onClose: () => void;
   width?: number;
@@ -21,7 +24,14 @@ type TModal = ({
 }) => ReactNode;
 
 const modalRoot = document.getElementById('react-modals');
-const Modal: TModal = ({ title, children, onClose, width = 720, disableClosing }) => {
+const Modal: TModal = ({
+  title,
+  titleSize = 'large',
+  children,
+  onClose,
+  width = 720,
+  disableClosing,
+}) => {
   useEffect(() => {
     function closeModal(e: KeyboardEvent): void {
       if (disableClosing) return;
@@ -49,7 +59,7 @@ const Modal: TModal = ({ title, children, onClose, width = 720, disableClosing }
       >
         <div className={styles.modal_container}>
           <div className={styles.modal_top}>
-            <h2 className="text text_type_main-large">{title}</h2>
+            <h2 className={clsx('text', `text_type_main-${titleSize}`)}>{title}</h2>
             <CloseIcon
               className={styles.cursor_pointer}
               type={'primary'}

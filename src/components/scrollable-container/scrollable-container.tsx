@@ -7,7 +7,7 @@ export default function ScrollableContainer({
   children,
   className,
 }: {
-  ref: Ref<HTMLDivElement | null>;
+  ref?: Ref<HTMLDivElement | null>;
   children: ReactNode;
   className?: string;
 }): ReactNode {

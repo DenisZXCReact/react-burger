@@ -3,12 +3,12 @@ import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
 import AppLayout from '@components/app/app-layout/app-layout.js';
 import ProtectedRoute from '@components/auth/protected-route/protected-route.js';
 import IngredientPreview from '@components/burger/ingredients/ingredient-preview/ingredient-preview.js';
+import ProfileOrder from '@components/profile/profile-order/profile-order.js';
 import Feed from '@pages/feed/feed.js';
 import ForgotPassword from '@pages/forgot-password/forgot-password.js';
 import Home from '@pages/home/home.js';
 import Login from '@pages/login/login.js';
 import NotFound from '@pages/not-found/not-found.js';
-import ProfileOrder from '@pages/profile-order/profile-order.js';
 import Profile from '@pages/profile/profile.js';
 import Register from '@pages/register/register.js';
 import ResetPassword from '@pages/reset-password/reset-password.js';
@@ -26,6 +26,10 @@ import type { TIngredient, TUser } from '@/types/types.ts';
 type HomeLoaderData = {
   loadIngredients: Promise<TIngredient[]>;
 };
+
+import FeedOrderModal from '@components/feed/feed-order-modal/feed-order-modal.tsx';
+import ProfileEditForm from '@components/profile/profile-edit-form/profile-edit-form.tsx';
+import ProfileOrderModal from '@components/profile/profile-order/profile-order-modal/profile-order-modal.tsx';
 
 import type { TNewPasswordArg, TResetPasswordArg } from '@utils/auth/auth-api.ts';
 
@@ -105,20 +109,51 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <ProtectedRoute component={<Profile />} />,
-        action: async ({ request }): Promise<void> => {
-          const data = await parseFormData(request);
-          store.dispatch(updateUser(data));
-        },
+
         children: [
           {
+            index: true,
+            action: async ({ request }): Promise<void> => {
+              const data = await parseFormData(request);
+              store.dispatch(updateUser(data));
+            },
+            element: <ProfileEditForm />,
+          },
+          {
             path: 'orders/',
+            loader: async (): Promise<HomeLoaderData | boolean> => {
+              const state = store.getState();
+              if (state.ingredients.ingredients.length === 0) {
+                return { loadIngredients: store.dispatch(loadIngredients()).unwrap() };
+              }
+              return true;
+            },
             element: <ProfileOrder />,
+            children: [
+              {
+                path: ':id',
+                element: <ProfileOrderModal />,
+              },
+            ],
           },
         ],
       },
       {
         path: '/feed',
         element: <Feed />,
+        loader: async (): Promise<HomeLoaderData | boolean> => {
+          const state = store.getState();
+          if (state.ingredients.ingredients.length === 0) {
+            return { loadIngredients: store.dispatch(loadIngredients()).unwrap() };
+          }
+          return true;
+        },
+        children: [
+          {
+            path: ':id',
+            element: <FeedOrderModal />,
+          },
+        ],
       },
       {
         path: '*',

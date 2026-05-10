@@ -19,3 +19,18 @@ export type TUser = {
   name: string;
   password?: string;
 };
+export type TFeedData = {
+  success: boolean;
+  orders: TFeedOrder[];
+  total: number;
+  totalToday: number;
+};
+export type TFeedOrder = {
+  ingredients: string[];
+  _id: string;
+  status: string;
+  number: number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+};

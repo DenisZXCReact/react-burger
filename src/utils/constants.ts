@@ -5,3 +5,7 @@ export const defaultOptions = {
     'Content-Type': 'application/json',
   },
 };
+
+export const feedSocketUrl = 'wss://new-stellarburgers.education-services.ru/orders/all';
+export const profileOrdersSocketUrl =
+  'wss://new-stellarburgers.education-services.ru/orders';
