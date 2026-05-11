@@ -15,6 +15,7 @@
 .listsBox {
   display: flex;
   gap: 32px;
+  height: 100%;
 }
 
 .list {

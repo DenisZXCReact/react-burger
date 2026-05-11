@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import type { PayloadAction } from '@reduxjs/toolkit';
+
 import type { TFeedData } from '@/types/types.ts';
 
 type TFeedSocketState = {
@@ -22,7 +24,7 @@ export const feedSocketSlice = createSlice({
     getFeedData: (state) => state.data,
   },
   reducers: {
-    connect: (state) => {
+    connect: (state, _action: PayloadAction<string>) => {
       state.isLoading = true;
       state.error = null;
     },

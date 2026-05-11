@@ -1,28 +1,29 @@
 import { Preloader } from '@krgaa/react-developer-burger-ui-components';
 import { type ReactNode, Suspense, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { Await, Outlet, useLoaderData } from 'react-router-dom';
 
 import FeedStats from '@components/feed/feed-stats/feed-stats.tsx';
 import OrderList from '@components/feed/order-list/order-list.tsx';
 import { useAppDispatch } from '@hooks/useAppDispatch.ts';
+import { useAppSelector } from '@hooks/useAppSelector.ts';
 import {
   connect,
   disconnect,
   getFeedData,
 } from '@services/feed-socket/feed-socket-slice.ts';
+import { feedSocketUrl } from '@utils/constants.ts';
 
 import styles from './feed.module.css';
 export default function Feed(): ReactNode {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(connect());
+    dispatch(connect(feedSocketUrl));
     return (): void => {
       dispatch(disconnect());
     };
   }, []);
   const { loadIngredients } = useLoaderData();
-  const feedData = useSelector(getFeedData);
+  const feedData = useAppSelector(getFeedData);
 
   return (
     <Suspense fallback={<Preloader />}>

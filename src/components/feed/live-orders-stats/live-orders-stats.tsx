@@ -1,12 +1,11 @@
-import { useSelector } from 'react-redux';
-
+import { useAppSelector } from '@hooks/useAppSelector.ts';
 import { getFeedData } from '@services/feed-socket/feed-socket-slice.ts';
 
 import type { ReactNode } from 'react';
 
 import styles from './live-orders-stats.module.css';
 export default function LiveOrdersStats(): ReactNode {
-  const feedData = useSelector(getFeedData);
+  const feedData = useAppSelector(getFeedData);
   const readyOrders = feedData!.orders.filter((order) => order.status === 'done');
   const inWorkOrder = feedData!.orders.filter((order) => order.status !== 'done');
   return (
