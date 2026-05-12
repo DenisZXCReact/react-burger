@@ -109,14 +109,13 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <ProtectedRoute component={<Profile />} />,
-
+        action: async ({ request }): Promise<void> => {
+          const data = await parseFormData(request);
+          store.dispatch(updateUser(data));
+        },
         children: [
           {
             index: true,
-            action: async ({ request }): Promise<void> => {
-              const data = await parseFormData(request);
-              store.dispatch(updateUser(data));
-            },
             element: <ProfileEditForm />,
           },
           {
