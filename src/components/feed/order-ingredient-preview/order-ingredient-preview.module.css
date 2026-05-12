@@ -1,0 +1,38 @@
+.preview {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  width: 64px;
+  height: 64px;
+  padding: 2px;
+  background: linear-gradient(225deg, #801ab2 0%, #4c4cff 100%);
+  border-radius: 50%;
+}
+
+.previewImage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #131316;
+  border-radius: 50%;
+}
+
+.previewImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.more {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: rgb(28 28 33 / 60%);
+}

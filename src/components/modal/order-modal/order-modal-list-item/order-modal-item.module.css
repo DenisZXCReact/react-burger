@@ -1,0 +1,22 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.ingredient {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 16px;
+}
+
+.price {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  min-width: 192px;
+}

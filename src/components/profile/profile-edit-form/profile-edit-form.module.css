@@ -1,0 +1,9 @@
+.form {
+  flex: 1 1 auto;
+  align-items: start !important;
+  align-self: center;
+}
+
+.buttons {
+  align-self: flex-end;
+}

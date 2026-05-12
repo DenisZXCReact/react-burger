@@ -1,0 +1,9 @@
+.list {
+  flex: 0 0 50%;
+  gap: 16px;
+  padding-right: 8px;
+}
+
+.list article {
+  cursor: pointer;
+}

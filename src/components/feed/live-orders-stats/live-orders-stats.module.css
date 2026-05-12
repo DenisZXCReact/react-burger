@@ -1,0 +1,29 @@
+.stats {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 60px;
+}
+
+.readyBlock,
+.workBlock {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.listsBox {
+  display: flex;
+  gap: 32px;
+  height: 100%;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+
+  li {
+    list-style: none;
+  }
+}

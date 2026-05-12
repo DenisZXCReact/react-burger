@@ -87,6 +87,7 @@ export default defineConfig([
             '^@pages/',
             '^@services/',
             '^@utils/',
+            '^@images/',
           ],
           customGroups: {
             value: {

@@ -1,0 +1,38 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  color: #fff;
+  cursor: pointer;
+}
+
+.card:active {
+  cursor: grabbing !important;
+}
+
+.card__image {
+  box-sizing: border-box;
+  width: 100%;
+  height: 120px;
+}
+
+.card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card__title {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  text-align: center;
+}
